@@ -129,7 +129,7 @@ describe("IgxGrid - Grid Paging", () => {
         expect(gridElement.querySelector("tbody tr td").textContent).toMatch("7");
     }));
 
-    fit("change paging settings UI", fakeAsync(() => {
+    it("change paging settings UI", fakeAsync(() => {
         const fix = TestBed.createComponent(GridMarkupPagingDeclaration);
         fix.detectChanges();
         const grid = fix.componentInstance.grid1;
