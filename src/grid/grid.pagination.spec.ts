@@ -1,5 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import { async, fakeAsync, TestBed, tick } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 import { DataType } from "../data-operations/data-util";
 import { IgxColumnComponent } from "./column.component";
 import { IgxGridComponent } from "./grid.component";
@@ -128,7 +129,7 @@ describe("IgxGrid - Grid Paging", () => {
         expect(gridElement.querySelector("tbody tr td").textContent).toMatch("7");
     }));
 
-    it("change paging settings UI", fakeAsync(() => {
+    fit("change paging settings UI", fakeAsync(() => {
         const fix = TestBed.createComponent(GridMarkupPagingDeclaration);
         fix.detectChanges();
         const grid = fix.componentInstance.grid1;
@@ -144,8 +145,8 @@ describe("IgxGrid - Grid Paging", () => {
         expect(gridElement.querySelectorAll(".igx-paginator > select").length).toEqual(1);
 
         // Change page size
-        const trigger = gridElement.querySelector(".igx-paginator > select") as HTMLSelectElement;
-        trigger.selectedIndex = 1;
+        const select = fix.debugElement.query(By.css(".igx-paginator > select"));
+        select.triggerEventHandler("change", { target: { value: 10 }});
 
         tick();
         fix.detectChanges();
@@ -211,7 +212,7 @@ describe("IgxGrid - Grid Paging", () => {
 export class GridMarkupPagingDeclaration {
     public data = new CustomStrategyData().data;
 
-    @ViewChild('grid1', { read: IgxGridComponent })
+    @ViewChild("grid1", { read: IgxGridComponent })
     public grid1: IgxGridComponent;
 }
 
@@ -228,7 +229,7 @@ export class GridDeclaration {
 
     public data = new CustomStrategyData().data;
 
-    @ViewChild('grid1', { read: IgxGridComponent })
+    @ViewChild("grid1", { read: IgxGridComponent })
     public grid1: IgxGridComponent;
 }
 
@@ -245,6 +246,6 @@ export class IgxGridMarkupEditingDeclaration {
 
     public data = new CustomStrategyData().data;
 
-    @ViewChild('grid1', { read: IgxGridComponent })
+    @ViewChild("grid1", { read: IgxGridComponent })
     public grid1: IgxGridComponent;
 }
